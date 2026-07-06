@@ -8,7 +8,7 @@ The application used in this lab is a simple Java Calculator application.
 
 # Lab Steps
 
-1. Install Java and Maven
+## 1. Install Java and Maven
 
 Update system packages:
 
@@ -32,7 +32,7 @@ Screenshot
 ![Maven version](screenshots/maven-version.png)
 
 
-2. Clone Source Code
+## 2. Clone Source Code
 
 Clone the Maven calculator application:
 ```
@@ -52,7 +52,7 @@ pom.xml
 src/
 Screenshot
 ```
-3. Run Unit Tests
+## 3. Run Unit Tests
 
 Execute Maven unit tests:
 ```
@@ -67,9 +67,10 @@ BUILD SUCCESS
 All unit tests passed successfully.
 ```
 Screenshot
+
 ![Maven Test](screenshots/maven-test.png)
 
-4. Build Application
+## 4. Build Application
 
 Package the Java application:
 ```
@@ -90,7 +91,7 @@ Artifact location:
 target/calculator.jar
 ```
 
-5. Run Application
+## 5. Run Application
 
 Run the generated JAR file:
 ```
@@ -107,9 +108,9 @@ Screenshot
 
 ![Maven run](screenshots/maven-run.png)
 
-Results
+## Results
 
-The Java Calculator application was successfully:
+ The Java Calculator application was successfully:
 
  Built using Apache Maven
  Tested using Maven Unit Tests
@@ -117,7 +118,7 @@ The Java Calculator application was successfully:
  Executed successfully
 
 Generated Artifact:
-
+```
 target/calculator.jar
 Project Structure
 calculator-maven/
@@ -134,3 +135,4 @@ calculator-maven/
 └── src/
     ├── main/
     └── test/
+```
