@@ -110,11 +110,14 @@ Screenshot
 
 ## Results
 
- The Java Calculator application was successfully:
+ * The Java Calculator application was successfully:
 
- Built using Apache Maven
- Tested using Maven Unit Tests
- Packaged into a JAR artifact
+ * Built using Apache Maven
+ 
+ * Tested using Maven Unit Tests
+ 
+ * Packaged into a JAR artifact
+ 
  Executed successfully
 
 Generated Artifact:
