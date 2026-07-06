@@ -120,7 +120,7 @@ Screenshot
  
  Executed successfully
 
-Generated Artifact:
+# Generated Artifact:
 ```
 target/calculator.jar
 Project Structure
