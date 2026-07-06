@@ -29,7 +29,7 @@ mvn -version
 ```
 Screenshot
 
-![Maven version](calculator-maven/screenshots/maven-version.png)
+![Maven version](screenshots/maven-version.png)
 
 
 2. Clone Source Code
@@ -67,7 +67,7 @@ BUILD SUCCESS
 All unit tests passed successfully.
 ```
 Screenshot
-![Maven Test](calculator-maven/screenshots/maven-test.png)
+![Maven Test](screenshots/maven-test.png)
 
 4. Build Application
 
@@ -105,7 +105,7 @@ The calculator application runs successfully and performs the required operation
 
 Screenshot
 
-![Maven run](calculator-maven/screenshots/maven-run.png)
+![Maven run](screenshots/maven-run.png)
 
 Results
 
