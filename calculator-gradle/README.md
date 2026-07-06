@@ -69,9 +69,6 @@ settings.gradle
 src/
 ```
 
-### Screenshot
-
-![Project Structure](screenshots/project-structure.png)
 
 ---
 
