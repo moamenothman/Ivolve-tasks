@@ -1,7 +1,7 @@
 
-Lab 1: Building and Packaging Java Application with Gradle
+# Lab 1: Building and Packaging Java Application with Gradle
 
-Overview
+## Overview
 
 This lab demonstrates how to build, test, package, and run a Java application using **Gradle**.
 
