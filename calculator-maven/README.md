@@ -110,7 +110,7 @@ Screenshot
 
 ## Results
 
- * The Java Calculator application was successfully:
+ ### The Java Calculator application was successfully:
 
  * Built using Apache Maven
  
