@@ -27,7 +27,7 @@ Verify Maven installation:
 ```
 mvn -version
 ```
-Screenshot
+### Screenshot
 
 ![Maven version](screenshots/maven-version.png)
 
@@ -66,7 +66,7 @@ BUILD SUCCESS
 
 All unit tests passed successfully.
 ```
-Screenshot
+### Screenshot
 
 ![Maven Test](screenshots/maven-test.png)
 
@@ -104,7 +104,7 @@ Enter second number: 5
 ```
 The calculator application runs successfully and performs the required operations.
 
-Screenshot
+### Screenshot
 
 ![Maven run](screenshots/maven-run.png)
 
