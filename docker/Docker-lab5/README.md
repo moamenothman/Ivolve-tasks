@@ -40,7 +40,7 @@ EXPOSE 8080
 
 CMD ["java", "-jar", "app.jar"]
 ```
-
+![Dockerfile](screenshots/dockerfile.png)
 ---
 
 ## Build Docker Image
@@ -56,7 +56,7 @@ Verify the image:
 ```bash
 docker images
 ```
-
+![Docker image](screenshots/docker-image.png)
 ---
 
 ## Run the Container
@@ -82,7 +82,7 @@ Open your browser and visit:
 ```
 http://localhost:8080
 ```
-
+![test](screenshots/test-website.png)
 Or test using curl:
 
 ```bash
