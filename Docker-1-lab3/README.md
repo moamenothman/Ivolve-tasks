@@ -136,4 +136,4 @@ docker rm container1
 
 Successfully containerized and deployed a Java Spring Boot application using Docker.
 
-The application was built, packaged, and executed inside a Docker container running on Docker Desktop with WSL 2 integration.
+The application was built, packaged, and executed inside a Docker container.
