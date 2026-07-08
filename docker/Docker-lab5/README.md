@@ -72,7 +72,6 @@ Verify that the container is running:
 ```bash
 docker ps
 ```
-![container](screenshots/docker-container.png)
 ---
 
 ## Test the Application
