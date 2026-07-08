@@ -48,8 +48,9 @@ EXPOSE 8080
 
 CMD ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar"]
 ```
-
+![Dockerfile](screenshots/dockerfile.png)
 ---
+
 
 # Build Docker Image
 
@@ -64,6 +65,7 @@ Check the created image:
 ```bash
 docker images
 ```
+![Docker Image](screenshots/docker-image.png)
 
 The image size was recorded after the build process.
 
@@ -82,7 +84,7 @@ Check running containers:
 ```bash
 docker ps
 ```
-
+![Docker Container](screenshots/docker-container.png)
 ---
 
 # Test the Application
@@ -92,6 +94,7 @@ The Spring Boot application was tested through the browser:
 ```
 http://localhost:8080
 ```
+![Application Test](screenshots/test-website.png)
 
 It was also tested using curl:
 
@@ -126,24 +129,6 @@ docker rm container1
 ```
 
 ---
-
-# Screenshots
-
-## Dockerfile
-
-![Dockerfile](screenshots/dockerfile.png)
-
-## Docker Image
-
-![Docker Image](screenshots/docker-image.png)
-
-## Docker Container
-
-![Docker Container](screenshots/docker-container.png)
-
-## Application Test
-
-![Application Test](screenshots/test-website.png)
 
 ---
 
