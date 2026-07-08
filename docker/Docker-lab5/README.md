@@ -122,19 +122,6 @@ docker rmi app3
 
 ---
 
-## Project Structure
-
-```
-Docker-1
-├── src/
-├── target/
-├── pom.xml
-├── Dockerfile
-└── README.md
-```
-
----
-
 ## Benefits of Multi-Stage Builds
 
 * Smaller Docker image size.
