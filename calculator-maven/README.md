@@ -123,7 +123,9 @@ The calculator application runs successfully and performs the required operation
 # Generated Artifact:
 ```
 target/calculator.jar
-Project Structure
+```
+# Project Structure
+```
 calculator-maven/
 │
 ├── pom.xml
