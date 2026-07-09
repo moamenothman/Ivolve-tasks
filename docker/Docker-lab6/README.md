@@ -97,7 +97,7 @@ docker run -d \
 app6
 ```
 
-![Environment File](screenshots/env-file .png)
+![Environment File](screenshots/env-file.png)
 
 ![CLI Environment File](screenshots/cli-env-file.png)
 
@@ -218,29 +218,6 @@ docker rm container1 container2 container3
 
 ```bash
 docker rmi app6
-```
-
----
-
-# Project Structure
-
-```
-Docker-3
-│
-├── Dockerfile
-├── app.env
-├── app.py
-├── screenshots
-│   ├── cli-env-file.png
-│   ├── cli-env-var.png
-│   ├── dockerfile.png
-│   ├── env-file.png
-│   ├── no-env-var.png
-│   ├── test1.png
-│   ├── test2.png
-│   ├── test3.png
-│   └── verify.png
-└── README.md
 ```
 
 ---
