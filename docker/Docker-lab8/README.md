@@ -42,7 +42,19 @@ cd Docker5
 ## Step 2: Build Docker Images
 
 ### Build Backend Image
+```bash
+FROM python:3.12-slim
 
+WORKDIR /app
+
+RUN pip install flask
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["python", "app.py"]
+```
 ```bash
 cd backend
 docker build -t backend-image .
@@ -53,7 +65,21 @@ Screenshot:
 ![Backend Image](screenshots/docker-backend.png)
 
 ### Build Frontend Image
+```bash
+FROM python:3.12-slim
 
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["python", "app.py"]
+```
 ```bash
 cd ../frontend
 docker build -t frontend-image .
