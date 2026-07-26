@@ -19,21 +19,6 @@ This lab demonstrates how to isolate Kubernetes nodes using **taints**. A taint 
 
 ---
 
-## Project Structure
-
-```text
-.
-├── README.md
-└── screenshots
-    ├── describe-taint.png
-    ├── get-nodes.png
-    ├── get-nodes2.png
-    ├── node-add.png
-    └── taint.png
-```
-
----
-
 ## Step 1: Verify Existing Nodes
 
 Display the current cluster nodes.
