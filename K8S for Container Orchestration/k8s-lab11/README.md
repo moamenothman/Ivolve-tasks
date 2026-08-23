@@ -84,5 +84,3 @@ Screenshot:
 
 The `ivolve` namespace was successfully created and a Kubernetes `ResourceQuota` was successfully configured to enforce a maximum limit of **2 Pods** within the namespace.
 
-**Lab 11 Status: Completed ✅**
-
