@@ -12,5 +12,5 @@ spec:
   persistentVolumeReclaimPolicy: Retain
 
   hostPath:
-    path: /mnt/d/app-logs
+    path: /mnt/app-logs
     type: DirectoryOrCreate
