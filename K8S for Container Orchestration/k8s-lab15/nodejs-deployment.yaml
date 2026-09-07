@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: nodejs-app
+  namespace: ivolve
+  labels:
+    app: nodejs
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: nodejs
+
+  template:
+    metadata:
+      labels:
+        app: nodejs
+
+    spec:
+      tolerations:
+        - key: "node"
+          operator: "Equal"
+          value: "worker"
+          effect: "NoSchedule"
+
+      volumes:
+        - name: app-logs
+          persistentVolumeClaim:
+            claimName: app-logs-pvc
+
+      containers:
+        - name: nodejs-app
+          image: moamenothman1/nodejs-app:v1
+
+          ports:
+            - containerPort: 3000
+
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: DB_HOST
+
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: DB_USER
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: DB_PASSWORD
+
+          volumeMounts:
+            - name: app-logs
+              mountPath: /app/logs
