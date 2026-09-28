@@ -283,7 +283,7 @@ spec:
           value: worker
           effect: NoSchedule
 ```
-
+![yaml](screenshots/nodejs_deployment_yaml.png)
 ---
 
 # 2️⃣ Understanding the Deployment
