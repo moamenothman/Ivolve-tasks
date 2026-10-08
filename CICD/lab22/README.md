@@ -2,57 +2,85 @@
 
 ## Overview
 
-This lab demonstrates how to create a Jenkins CI/CD pipeline to automate the deployment of a Java Spring Boot application to a Kubernetes cluster.
+This lab demonstrates how to create a Jenkins CI/CD pipeline that automates the process of testing, building, containerizing, pushing, and deploying a Java application to a Kubernetes cluster.
 
-The pipeline automates the complete workflow from cloning the application source code to deploying the application on Kubernetes.
+The pipeline performs the following tasks:
+
+1. Clone the application source code from GitHub.
+2. Run unit tests.
+3. Build the Java application.
+4. Build a Docker image using the Dockerfile from the GitHub repository.
+5. Push the Docker image to Docker Hub.
+6. Delete the local Docker image.
+7. Update the Kubernetes `deployment.yaml` with the new image tag.
+8. Deploy the application to the Kubernetes cluster.
+9. Display pipeline status using Jenkins post actions.
+
+---
+
+## Objectives
+
+- Create a Jenkins Declarative Pipeline.
+- Automate Maven unit testing and application building.
+- Build Docker images automatically.
+- Push Docker images to Docker Hub.
+- Use Jenkins credentials securely.
+- Dynamically update the Kubernetes deployment image.
+- Deploy the application automatically to Kubernetes.
+- Verify the deployed application using Kubernetes commands.
+
+---
+
+## Technologies Used
+
+- Jenkins
+- Git / GitHub
+- Maven
+- Java 17
+- Docker
+- Docker Hub
+- Kubernetes
+- Minikube
+- kubectl
+- Spring Boot
+
+---
+
+## Source Code
 
 The application source code and Dockerfile are cloned from:
 
 `https://github.com/Ibrahim-Adel15/Jenkins_App.git`
 
-The Docker image is pushed to Docker Hub:
+The application is a Spring Boot application using Maven.
+
+Docker Hub repository:
 
 `moamenothan1/jenkins-app`
 
-The application is deployed to the `jenkins` namespace in Kubernetes.
-
 ---
 
-# Objectives
-
-The Jenkins pipeline automates the following tasks:
-
-1. Clone the application source code and Dockerfile.
-2. Run unit tests.
-3. Build the application.
-4. Build a Docker image.
-5. Push the Docker image to Docker Hub.
-6. Delete the local Docker image.
-7. Update the image in `deployment.yaml`.
-8. Deploy the application to the Kubernetes cluster.
-9. Configure Jenkins post actions for success, failure, and always.
-
----
-
-# Project Structure
+## Project Structure
 
 ```text
-lab22/
-├── Jenkins_App/
+.
+├── Jenkins_App
 │   ├── Dockerfile
 │   ├── pom.xml
-│   └── src/
-│       └── main/
-│           └── java/
-│               └── com/
-│                   └── example/
-│                       └── demo/
+│   └── src
+│       └── main
+│           └── java
+│               └── com
+│                   └── example
+│                       └── demo
 │                           └── DemoApplication.java
 ├── Jenkinsfile
+├── README.md
 ├── deployment.yaml
-└── screenshots/
+└── screenshots
     ├── create_credentials.png
     ├── deployment.png
+    ├── get_pods.png
     ├── jenkinsfile.png
     ├── job_create.png
     └── pipeline_finished.png
@@ -60,31 +88,9 @@ lab22/
 
 ---
 
-# Technologies Used
-
-- Jenkins
-- Jenkins Pipeline
-- Git
-- GitHub
-- Maven
-- Java 17
-- Docker
-- Docker Hub
-- Kubernetes
-- kubectl
-- Minikube
-
----
-
 # Jenkins Pipeline
 
-The pipeline is defined in:
-
-```text
-Jenkinsfile
-```
-
-The complete Jenkinsfile is:
+The complete Jenkins pipeline is implemented in the `Jenkinsfile`.
 
 ```groovy
 pipeline {
@@ -212,30 +218,8 @@ pipeline {
 
 ---
 
-# Pipeline Stages Explanation
+# Pipeline Stages
 
 ## 0. Clone Application Source
 
-The pipeline clones the application repository:
-
-```text
-https://github.com/Ibrahim-Adel15/Jenkins_App.git
-```
-
-The source code and Dockerfile are cloned into:
-
-```text
-CICD/lab22/Jenkins_App
-```
-
----
-
-## 1. Run Unit Test
-
-The application unit tests are executed using Maven.
-
-```bash
-mvn test
-```
-
-However, Maven is not executed directly on the Jenkins host. It is executed inside a Docker container using
+The pipeline removes any
