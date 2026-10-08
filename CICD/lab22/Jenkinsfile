@@ -1,4 +1,3 @@
-```groovy
 pipeline {
     agent any
 
@@ -6,7 +5,6 @@ pipeline {
         IMAGE_NAME = 'moamenothman1/jenkins-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
-
         APP_DIR = 'CICD/lab22/Jenkins_App'
         DEPLOYMENT_FILE = 'CICD/lab22/deployment.yaml'
     }
@@ -124,4 +122,3 @@ pipeline {
         }
     }
 }
-```
