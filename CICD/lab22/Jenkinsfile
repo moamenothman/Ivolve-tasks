@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -23,6 +24,26 @@ pipeline {
 
         stage('1. Run Unit Test') {
             steps {
+                sh '''
+                    echo "===== JAVA ====="
+                    java -version
+
+                    echo "===== JAVAC ====="
+                    javac -version
+
+                    echo "===== JAVA_HOME ====="
+                    echo "$JAVA_HOME"
+
+                    echo "===== WHICH JAVA ====="
+                    which java
+
+                    echo "===== WHICH JAVAC ====="
+                    which javac
+
+                    echo "===== MAVEN ====="
+                    mvn -version
+                '''
+
                 dir("${APP_DIR}") {
                     sh 'mvn test'
                 }
@@ -103,3 +124,4 @@ pipeline {
         }
     }
 }
+```
