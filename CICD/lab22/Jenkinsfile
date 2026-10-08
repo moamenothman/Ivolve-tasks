@@ -5,11 +5,21 @@ pipeline {
         IMAGE_NAME = 'moamenothman1/jenkins-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
+
         APP_DIR = 'CICD/lab22/Jenkins_App'
         DEPLOYMENT_FILE = 'CICD/lab22/deployment.yaml'
     }
 
     stages {
+
+        stage('0. Clone Application Source') {
+            steps {
+                sh '''
+                    rm -rf "$APP_DIR"
+                    git clone https://github.com/Ibrahim-Adel15/Jenkins_App.git "$APP_DIR"
+                '''
+            }
+        }
 
         stage('1. Run Unit Test') {
             steps {
@@ -63,6 +73,7 @@ pipeline {
             steps {
                 sh '''
                     sed -i "s#image: .*#image: ${FULL_IMAGE}#" "$DEPLOYMENT_FILE"
+
                     echo "Updated deployment.yaml:"
                     cat "$DEPLOYMENT_FILE"
                 '''
