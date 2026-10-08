@@ -2,9 +2,13 @@ pipeline {
     agent any
 
     environment {
+        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk-amd64'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+
         IMAGE_NAME = 'moamenothman1/jenkins-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
+
         APP_DIR = 'CICD/lab22/Jenkins_App'
         DEPLOYMENT_FILE = 'CICD/lab22/deployment.yaml'
     }
@@ -31,12 +35,6 @@ pipeline {
 
                     echo "===== JAVA_HOME ====="
                     echo "$JAVA_HOME"
-
-                    echo "===== WHICH JAVA ====="
-                    which java
-
-                    echo "===== WHICH JAVAC ====="
-                    which javac
 
                     echo "===== MAVEN ====="
                     mvn -version
