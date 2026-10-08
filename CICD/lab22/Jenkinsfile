@@ -2,9 +2,6 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk-amd64'
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
-
         IMAGE_NAME = 'moamenothman1/jenkins-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
@@ -26,22 +23,14 @@ pipeline {
 
         stage('1. Run Unit Test') {
             steps {
-                sh '''
-                    echo "===== JAVA ====="
-                    java -version
-
-                    echo "===== JAVAC ====="
-                    javac -version
-
-                    echo "===== JAVA_HOME ====="
-                    echo "$JAVA_HOME"
-
-                    echo "===== MAVEN ====="
-                    mvn -version
-                '''
-
                 dir("${APP_DIR}") {
-                    sh 'mvn test'
+                    sh '''
+                        docker run --rm \
+                            -v "$PWD:/app" \
+                            -w /app \
+                            maven:3.9-eclipse-temurin-17 \
+                            mvn test
+                    '''
                 }
             }
         }
@@ -49,7 +38,13 @@ pipeline {
         stage('2. Build App') {
             steps {
                 dir("${APP_DIR}") {
-                    sh 'mvn clean package -DskipTests'
+                    sh '''
+                        docker run --rm \
+                            -v "$PWD:/app" \
+                            -w /app \
+                            maven:3.9-eclipse-temurin-17 \
+                            mvn clean package -DskipTests
+                    '''
                 }
             }
         }
@@ -72,8 +67,12 @@ pipeline {
                     )
                 ]) {
                     sh '''
-                        echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+                        echo "$DOCKERHUB_PASS" | docker login \
+                            -u "$DOCKERHUB_USER" \
+                            --password-stdin
+
                         docker push "$FULL_IMAGE"
+
                         docker logout
                     '''
                 }
