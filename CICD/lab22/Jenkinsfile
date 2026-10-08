@@ -5,13 +5,15 @@ pipeline {
         IMAGE_NAME = 'moamenothman1/jenkins-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
+        APP_DIR = 'CICD/lab22/Jenkins_App'
+        DEPLOYMENT_FILE = 'CICD/lab22/deployment.yaml'
     }
 
     stages {
 
         stage('1. Run Unit Test') {
             steps {
-                dir('Jenkins_App') {
+                dir("${APP_DIR}") {
                     sh 'mvn test'
                 }
             }
@@ -19,7 +21,7 @@ pipeline {
 
         stage('2. Build App') {
             steps {
-                dir('Jenkins_App') {
+                dir("${APP_DIR}") {
                     sh 'mvn clean package -DskipTests'
                 }
             }
@@ -27,7 +29,7 @@ pipeline {
 
         stage('3. Build Docker Image') {
             steps {
-                dir('Jenkins_App') {
+                dir("${APP_DIR}") {
                     sh 'docker build -t ${FULL_IMAGE} .'
                 }
             }
@@ -60,15 +62,18 @@ pipeline {
         stage('6. Edit Image in deployment.yaml') {
             steps {
                 sh '''
-                    sed -i "s#image: .*#image: ${FULL_IMAGE}#" deployment.yaml
-                    cat deployment.yaml
+                    sed -i "s#image: .*#image: ${FULL_IMAGE}#" "$DEPLOYMENT_FILE"
+                    echo "Updated deployment.yaml:"
+                    cat "$DEPLOYMENT_FILE"
                 '''
             }
         }
 
         stage('7. Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f deployment.yaml'
+                sh '''
+                    kubectl apply -f "$DEPLOYMENT_FILE"
+                '''
             }
         }
     }
