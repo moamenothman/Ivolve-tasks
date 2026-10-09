@@ -1,0 +1,64 @@
+groovy
+@Library('ivolve-shared-library') _
+
+pipeline {
+    agent {
+        label 'lab23-agent'
+    }
+
+    environment {
+        IMAGE_NAME = 'moamenothan1/jenkins-app'
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
+        APP_DIR = 'Jenkins_App'
+        DEPLOYMENT_FILE = 'CICD/lab23/deployment.yaml'
+    }
+
+    stages {
+        stage('BuildApp') {
+            steps {
+                sh '''
+                    rm -rf "$APP_DIR"
+                    git clone https://github.com/Ibrahim-Adel15/Jenkins_App.git "$APP_DIR"
+                '''
+
+                buildApp("${APP_DIR}")
+            }
+        }
+
+        stage('BuildImage') {
+            steps {
+                buildImage(
+                    "${IMAGE_NAME}",
+                    "${IMAGE_TAG}",
+                    "${APP_DIR}"
+                )
+            }
+        }
+
+        stage('DeployOnK8s') {
+            steps {
+                sh '''
+                    sed -i "s#image: .*#image: ${FULL_IMAGE}#" "$DEPLOYMENT_FILE"
+                '''
+
+                deployOnK8s("${DEPLOYMENT_FILE}")
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Lab 23 pipeline execution completed.'
+        }
+
+        success {
+            echo 'Lab 23 pipeline completed successfully.'
+        }
+
+        failure {
+            echo 'Lab 23 pipeline failed.'
+        }
+    }
+}
+
