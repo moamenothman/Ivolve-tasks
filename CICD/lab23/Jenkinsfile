@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = 'moamenothan1/jenkins-app'
+        IMAGE_NAME = 'moamenothman1/jenkins-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
         APP_DIR = 'Jenkins_App'
