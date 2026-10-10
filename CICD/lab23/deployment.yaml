@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: jenkins-app
-          image: moamenothan1/jenkins-app:latest
+          image: moamenothman1/jenkins-app:latest
           ports:
             - containerPort: 8080
 ---
