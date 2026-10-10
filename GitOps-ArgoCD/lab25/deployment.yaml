@@ -1,0 +1,33 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-app-lab25
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-app-lab25
+  template:
+    metadata:
+      labels:
+        app: jenkins-app-lab25
+    spec:
+      containers:
+        - name: jenkins-app
+          image: moamenothman1/jenkins-app:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-app-lab25
+spec:
+  selector:
+    app: jenkins-app-lab25
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: NodePort
+
