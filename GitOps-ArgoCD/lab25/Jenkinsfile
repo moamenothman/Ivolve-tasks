@@ -1,0 +1,146 @@
+
+@Library('ivolve-shared-library') _
+
+pipeline {
+    agent {
+        label 'lab23-agent'
+    }
+
+    environment {
+        IMAGE_NAME = 'moamenothman1/jenkins-app'
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        FULL_IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
+
+        APP_DIR = 'Jenkins_App'
+        DEPLOYMENT_FILE = 'GitOps-ArgoCD/lab25/deployment.yaml'
+        GITHUB_REPO = 'https://github.com/moamenothman/Ivolve-tasks.git'
+    }
+
+    stages {
+        stage('Build App') {
+            steps {
+                sh '''
+                    rm -rf "$APP_DIR"
+
+                    git clone \
+                        https://github.com/Ibrahim-Adel15/Jenkins_App.git \
+                        "$APP_DIR"
+                '''
+
+                buildApp("${APP_DIR}")
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                    docker build \
+                        -t "$FULL_IMAGE" \
+                        "$APP_DIR"
+                '''
+            }
+        }
+
+        stage('Push Image to Docker Hub') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )
+                ]) {
+                    sh '''
+                        set +x
+
+                        echo "$DOCKER_PASS" | docker login \
+                            -u "$DOCKER_USER" \
+                            --password-stdin
+
+                        docker push "$FULL_IMAGE"
+
+                        docker logout
+                    '''
+                }
+            }
+        }
+
+        stage('Delete Local Image') {
+            steps {
+                sh '''
+                    docker image rm "$FULL_IMAGE"
+                '''
+            }
+        }
+
+        stage('Update Deployment Manifest') {
+            steps {
+                sh '''
+                    sed -i \
+                        "s#image: .*#image: ${FULL_IMAGE}#" \
+                        "$DEPLOYMENT_FILE"
+
+                    echo "Updated image:"
+                    grep "image:" "$DEPLOYMENT_FILE"
+                '''
+            }
+        }
+
+        stage('Push Changes to GitHub') {
+            steps {
+                sh '''
+                    git config user.name "Jenkins CI"
+                    git config user.email "jenkins@example.com"
+
+                    git add "$DEPLOYMENT_FILE"
+
+                    git commit -m "Update Lab 25 image to ${IMAGE_TAG}"
+                '''
+
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'github',
+                        usernameVariable: 'GH_USER',
+                        passwordVariable: 'GH_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        set +x
+
+                        ASKPASS="$WORKSPACE/.git-askpass.sh"
+                        trap 'rm -f "$ASKPASS"' EXIT
+
+                        cat > "$ASKPASS" <<'EOF'
+#!/bin/sh
+case "$1" in
+    *Username*) printf '%s\\n' "$GH_USER" ;;
+    *Password*) printf '%s\\n' "$GH_TOKEN" ;;
+esac
+EOF
+
+                        chmod 700 "$ASKPASS"
+
+                        GIT_ASKPASS="$ASKPASS" \
+                        GIT_TERMINAL_PROMPT=0 \
+                            git push origin HEAD:main
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Lab 25 pipeline execution completed.'
+        }
+
+        success {
+            echo 'Image pushed and GitOps manifest updated. Argo CD should sync the change.'
+        }
+
+        failure {
+            echo 'Lab 25 pipeline failed. Check the console output for details.'
+        }
+    }
+}
+
