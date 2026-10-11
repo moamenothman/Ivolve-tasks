@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jenkins-app-lab25
+  namespace: lab25
 spec:
   replicas: 1
   selector:
