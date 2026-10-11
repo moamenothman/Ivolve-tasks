@@ -72,7 +72,7 @@ Repository configuration:
 
 The application was initially configured with its Deployment in the `default` namespace.
 
-![Initial application state in Argo CD](screenshots/application_in_argo_cd_ui_before_change_in_the_repo.png)
+![Initial application state in Argo CD](screenshots/application_in_argo_cd_ui_before_change_in%20_the_repo.png)
 
 ![Argo CD Application manifest](screenshots/lab25_app_yaml.png)
 
